@@ -6,11 +6,11 @@ namespace ForumProject.Data.Models
 {
     public class Forum
     {
-        public int Id { get; set; }
-        public String Title { get; set; }
-        public string Description { get; set; }
-        public DateTime Created { get; set; }
-        public string ImageUrl { get; set; }
-        public virtual IEnumerable<Post> Posts { get; set; }
+        public int id { get; set; }
+        public String title { get; set; }
+        public string description { get; set; }
+        public DateTime created { get; set; }
+        public string imageUrl { get; set; }
+        public virtual IEnumerable<Post> posts { get; set; }
     }
 }

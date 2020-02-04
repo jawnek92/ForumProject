@@ -6,13 +6,13 @@ namespace ForumProject.Data.Models
 {
     public class Post
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public DateTime Created { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public int id { get; set; }
+        public string title { get; set; }
+        public string content { get; set; }
+        public DateTime created { get; set; }
+        public virtual ApplicationUser user { get; set; }
         public virtual Forum forum { get; set; }
 
-        public virtual IEnumerable<PostReply> Replies { get; set; }
+        public virtual IEnumerable<PostReply> replies { get; set; }
     }
 }
