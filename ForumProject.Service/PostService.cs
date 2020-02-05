@@ -18,9 +18,10 @@ namespace ForumProject.Service
             this._context = context;
         }
 
-        public Task add(Post post)
+        public async Task add(Post post)
         {
-            throw new NotImplementedException();
+            _context.Add(post);
+            await _context.SaveChangesAsync();
         }
 
         public Task delete(int id)

@@ -3,7 +3,15 @@
     ViewData["Title"] = "Topic";
 }
 
-<h2>Welcome to the @Model.forum.name  forum.</h2>
+<h2>Welcome to the @Model.forum.name forum.</h2>
+
+<span id="headingBtn">
+    <a asp-controller="Post" 
+        asp-action="Create" 
+        asp-route-id="@Model.forum.id" class="btn btn-newPost">
+            Create Post
+    </a>
+</span>
 
 @if(Model.posts.Any())
 {

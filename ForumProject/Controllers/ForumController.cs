@@ -44,6 +44,8 @@ namespace ForumProject.Controllers
             {
                 id = post.id,
                 authorId = post.user.Id,
+                author = post.user.UserName,
+                authorRating = post.user.rating,
                 title = post.title,
                 datePosted = post.created.ToString(),
                 nrOfReplies = post.replies.Count(),
