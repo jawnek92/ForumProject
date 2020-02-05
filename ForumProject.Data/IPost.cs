@@ -12,6 +12,7 @@ namespace ForumProject.Data
         IEnumerable<Post> getAll();
         IEnumerable<Post> getFilteredPosts(string searchQuery);
         IEnumerable<Post> getPostsByForum(int id);
+        IEnumerable<Post> getLatestPosts(int number);
 
         Task add(Post post);
         Task delete(int id);

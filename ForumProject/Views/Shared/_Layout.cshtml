@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ForumProject.Data.Models.ApplicationUser> userManager
+@inject SignInManager<ForumProject.Data.Models.ApplicationUser> signInManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -20,19 +24,46 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ForumProject</a>
+                <a class="navbar-brand navLogo" asp-controller="Home" asp-action="Index">ForumProject</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-controller="Forum" asp-action="Index">Forums</a></li>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Settings<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Profile</li>
+                                <li><a asp-controller="Profile" asp-action="Detail">My Profile</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-header">Admin</li>
+                                    <li><a asp-controller="Forum" asp-action="Create">Create Forum</a></li>
+                                    <li><a asp-controller="Profile" asp-action="Index">View users</a></li>
+                                }
+                            </ul>
+                        </li>
+
+                    }
+                    else if (!signInManager.IsSignedIn(User))
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                            <li class="active"><a asp-controller="Account" asp-action="Register">Register</a></li>
+                        </ul>
+                    }
+                    else if (signInManager.IsSignedIn(User))
+                    {
+                        <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>Hello @userManager.GetUserName(User)</li>
+                                <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                            </ul>
+                        </form>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -42,7 +73,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2020 - ForumProject</p>
+            <p>&copy; 2020 - Forum ASP.NET Project</p>
         </footer>
     </div>
 
