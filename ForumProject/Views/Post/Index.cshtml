@@ -1,0 +1,31 @@
+﻿@model ForumProject.Models.Post.PostIndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>@Model.title</h2>
+
+<div>
+    Author: @Model.authorName (@Model.authorRathing)
+    Created: @Model.created
+</div>
+<div>
+    @Model.content
+</div>
+
+@if (Model.replies.Any())
+{
+    foreach(var reply in Model.replies)
+    {
+        <div>
+            <div>
+                Reply Author: @reply.authorName (@reply.authorRating)
+                Reply Created: @reply.created
+            </div>
+            <div>
+                Reply: @reply.content
+            </div>
+        </div>
+    }
+}
+

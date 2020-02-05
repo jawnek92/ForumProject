@@ -10,6 +10,7 @@ namespace ForumProject.Data.Models
     public class ApplicationUser : IdentityUser
     { 
         public string profileImageUrl { get; set; }
+        public int rating { get; set; }
         public DateTime memberSince { get; set; }
         public bool isActive { get; set; }
     }

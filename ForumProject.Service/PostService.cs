@@ -1,5 +1,6 @@
 ﻿using ForumProject.Data;
 using ForumProject.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,11 @@ namespace ForumProject.Service
 
         public Post getById(int id)
         {
-            throw new NotImplementedException();
+            return _context.posts.Where(post => post.id == id)
+                .Include(post => post.user)
+                .Include(post => post.replies).ThenInclude(reply => reply.user)
+                .Include(post => post.forum)
+                .First();
         }
 
         public IEnumerable<Post> getFilteredPosts(string searchQuery)
