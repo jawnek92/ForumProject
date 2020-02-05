@@ -41,7 +41,11 @@ namespace ForumProject.Data.Migrations
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true)
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    isActive = table.Column<bool>(nullable: false),
+                    memberSince = table.Column<DateTime>(nullable: false),
+                    profileImageUrl = table.Column<string>(nullable: true),
+                    rating = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,16 +56,16 @@ namespace ForumProject.Data.Migrations
                 name: "forums",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    ImageUrl = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true)
+                    created = table.Column<DateTime>(nullable: false),
+                    description = table.Column<string>(nullable: true),
+                    imageUrl = table.Column<string>(nullable: true),
+                    title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_forums", x => x.Id);
+                    table.PrimaryKey("PK_forums", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,27 +178,27 @@ namespace ForumProject.Data.Migrations
                 name: "posts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Content = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    forumId = table.Column<int>(nullable: true)
+                    content = table.Column<string>(nullable: true),
+                    created = table.Column<DateTime>(nullable: false),
+                    forumid = table.Column<int>(nullable: true),
+                    title = table.Column<string>(nullable: true),
+                    userId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_posts", x => x.Id);
+                    table.PrimaryKey("PK_posts", x => x.id);
                     table.ForeignKey(
-                        name: "FK_posts_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        name: "FK_posts_forums_forumid",
+                        column: x => x.forumid,
+                        principalTable: "forums",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_posts_forums_forumId",
-                        column: x => x.forumId,
-                        principalTable: "forums",
+                        name: "FK_posts_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -203,41 +207,41 @@ namespace ForumProject.Data.Migrations
                 name: "replies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Content = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    PostId = table.Column<int>(nullable: true),
-                    PostReplyId = table.Column<int>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    forumId = table.Column<int>(nullable: true)
+                    PostReplyid = table.Column<int>(nullable: true),
+                    Postid = table.Column<int>(nullable: true),
+                    content = table.Column<string>(nullable: true),
+                    created = table.Column<DateTime>(nullable: false),
+                    forumid = table.Column<int>(nullable: true),
+                    title = table.Column<string>(nullable: true),
+                    userId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_replies", x => x.Id);
+                    table.PrimaryKey("PK_replies", x => x.id);
                     table.ForeignKey(
-                        name: "FK_replies_posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_replies_replies_PostReplyId",
-                        column: x => x.PostReplyId,
+                        name: "FK_replies_replies_PostReplyid",
+                        column: x => x.PostReplyid,
                         principalTable: "replies",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_replies_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        name: "FK_replies_posts_Postid",
+                        column: x => x.Postid,
+                        principalTable: "posts",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_replies_forums_forumId",
-                        column: x => x.forumId,
+                        name: "FK_replies_forums_forumid",
+                        column: x => x.forumid,
                         principalTable: "forums",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_replies_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -282,34 +286,34 @@ namespace ForumProject.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_posts_UserId",
+                name: "IX_posts_forumid",
                 table: "posts",
-                column: "UserId");
+                column: "forumid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_posts_forumId",
+                name: "IX_posts_userId",
                 table: "posts",
-                column: "forumId");
+                column: "userId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_replies_PostId",
+                name: "IX_replies_PostReplyid",
                 table: "replies",
-                column: "PostId");
+                column: "PostReplyid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_replies_PostReplyId",
+                name: "IX_replies_Postid",
                 table: "replies",
-                column: "PostReplyId");
+                column: "Postid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_replies_UserId",
+                name: "IX_replies_forumid",
                 table: "replies",
-                column: "UserId");
+                column: "forumid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_replies_forumId",
+                name: "IX_replies_userId",
                 table: "replies",
-                column: "forumId");
+                column: "userId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -339,10 +343,10 @@ namespace ForumProject.Data.Migrations
                 name: "posts");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "forums");
 
             migrationBuilder.DropTable(
-                name: "forums");
+                name: "AspNetUsers");
         }
     }
 }

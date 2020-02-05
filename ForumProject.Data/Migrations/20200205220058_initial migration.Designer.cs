@@ -11,7 +11,7 @@ using System;
 namespace ForumProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200204184633_initial migration")]
+    [Migration("20200205220058_initial migration")]
     partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,14 @@ namespace ForumProject.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<bool>("isActive");
+
+                    b.Property<DateTime>("memberSince");
+
+                    b.Property<string>("profileImageUrl");
+
+                    b.Property<int>("rating");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -74,74 +82,74 @@ namespace ForumProject.Data.Migrations
 
             modelBuilder.Entity("ForumProject.Data.Models.Forum", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("created");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("description");
 
-                    b.Property<string>("ImageUrl");
+                    b.Property<string>("imageUrl");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("title");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("forums");
                 });
 
             modelBuilder.Entity("ForumProject.Data.Models.Post", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Content");
+                    b.Property<string>("content");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("created");
 
-                    b.Property<string>("Title");
+                    b.Property<int?>("forumid");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("title");
 
-                    b.Property<int?>("forumId");
+                    b.Property<string>("userId");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("forumid");
 
-                    b.HasIndex("forumId");
+                    b.HasIndex("userId");
 
                     b.ToTable("posts");
                 });
 
             modelBuilder.Entity("ForumProject.Data.Models.PostReply", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Content");
+                    b.Property<int?>("PostReplyid");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<int?>("Postid");
 
-                    b.Property<int?>("PostId");
+                    b.Property<string>("content");
 
-                    b.Property<int?>("PostReplyId");
+                    b.Property<DateTime>("created");
 
-                    b.Property<string>("Title");
+                    b.Property<int?>("forumid");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("title");
 
-                    b.Property<int?>("forumId");
+                    b.Property<string>("userId");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("PostReplyid");
 
-                    b.HasIndex("PostReplyId");
+                    b.HasIndex("Postid");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("forumid");
 
-                    b.HasIndex("forumId");
+                    b.HasIndex("userId");
 
                     b.ToTable("replies");
                 });
@@ -256,32 +264,32 @@ namespace ForumProject.Data.Migrations
 
             modelBuilder.Entity("ForumProject.Data.Models.Post", b =>
                 {
-                    b.HasOne("ForumProject.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.HasOne("ForumProject.Data.Models.Forum", "forum")
-                        .WithMany("Posts")
-                        .HasForeignKey("forumId");
+                        .WithMany("posts")
+                        .HasForeignKey("forumid");
+
+                    b.HasOne("ForumProject.Data.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("userId");
                 });
 
             modelBuilder.Entity("ForumProject.Data.Models.PostReply", b =>
                 {
-                    b.HasOne("ForumProject.Data.Models.Post")
-                        .WithMany("Replies")
-                        .HasForeignKey("PostId");
-
                     b.HasOne("ForumProject.Data.Models.PostReply")
-                        .WithMany("Replies")
-                        .HasForeignKey("PostReplyId");
+                        .WithMany("replies")
+                        .HasForeignKey("PostReplyid");
 
-                    b.HasOne("ForumProject.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                    b.HasOne("ForumProject.Data.Models.Post")
+                        .WithMany("replies")
+                        .HasForeignKey("Postid");
 
                     b.HasOne("ForumProject.Data.Models.Forum", "forum")
                         .WithMany()
-                        .HasForeignKey("forumId");
+                        .HasForeignKey("forumid");
+
+                    b.HasOne("ForumProject.Data.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("userId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

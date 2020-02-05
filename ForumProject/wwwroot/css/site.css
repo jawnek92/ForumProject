@@ -34,7 +34,7 @@
 .sectionHeading {
     color: white;
     font-size: 1.3em;
-    font-family: 'Roboto';
+    font-family: 'PT Serif';
     padding: 16px 0 16px 0;
     border-bottom: 1px solid #335;
     margin-bottom: 12px;
@@ -43,7 +43,7 @@
 .postHeading {
     color: white;
     font-size: 1.3em;
-    font-family: 'Roboto';
+    font-family: 'PT Serif';
     padding: 16px 0 16px 0;
 }
 
@@ -65,7 +65,7 @@
 .frontPageLearn {
     text-align: center;
     opacity: 1;
-    font-family: 'Roboto';
+    font-family: 'PT Serif';
     color: white;
 }
 
@@ -96,13 +96,13 @@
 /*Post page*/
 
 .postTitle {
-    font-family: 'Roboto';
+    font-family: 'PT Serif';
     font-weight: bold;
 }
 
 .postSubTitle {
     color: #888;
-    font-family: 'Roboto Mono';
+    font-family: 'PT Serif';
     font-size: 0.8em;
 }
 
@@ -112,7 +112,7 @@
 
 .postDate {
     color: #888;
-    font-family: 'Roboto Mono';
+    font-family: 'PT Serif';
     font-size: 0.8em;
 }
 
@@ -139,20 +139,20 @@
 }
 
 .forumTitle {
-    font-family: 'Roboto';
+    font-family: 'PT Serif';
     font-weight: bold;
     font-size: 1.1em;
 }
 
 .forumSubTitle {
     color: #888;
-    font-family: 'Roboto Mono';
+    font-family: 'PT Serif';
     font-size: 0.8em;
 }
 
 .forumDescription {
     color: #555;
-    font-family: 'Roboto';
+    font-family: 'PT Serif';
 }
 
 .forumLogo {
@@ -163,18 +163,18 @@
     width: 40px;
     background-color: #ddd;
     border: 1px solid #555;
-    background-size: 100%
+    background-size: 100%;
 }
 
 .forumPostCount {
     color: #888;
-    font-family: 'Roboto Mono';
+    font-family: 'PT Serif';
     font-size: 0.9em;
 }
 
 .forumMemberCount {
     color: #888;
-    font-family: 'Roboto Mono';
+    font-family: 'PT Serif';
     font-size: 0.9em;
 }
 
@@ -186,7 +186,7 @@
 .noPosts {
     text-align: center;
     padding-top: 30px;
-    font-family: 'Roboto Mono';
+    font-family: 'PT Serif';
 }
 
 /*Post*/
@@ -215,18 +215,18 @@
     padding: 40px 80px 42px 40px;
     border: 1px solid #999;
     background-color: #2569D5;
-    font-family: 'Roboto';
+    font-family: 'PT Serif';
 }
 
 .homeSearch {
     width: 50%;
     margin-top: 8px;
-    background: rgba(0,0,0,0.1);
+    background-color: grey;
     padding: 8px;
     border: 0px;
     height: 1.8em;
     font-size: 2.1em;
-    font-family: 'Roboto Mono';
+    font-family: 'PT Serif';
     font-weight: bold;
     transition: ease-in 0.2s;
 }
