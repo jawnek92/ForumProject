@@ -1,0 +1,24 @@
+﻿@model ForumProject.Models.Forum.ForumIndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Forums</h2>
+
+<table class="table table-hover" id="forumIndexTable">
+    <tbody>
+        @foreach (var forum in Model.forumList)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Forum" asp-action="Topic" asp-route-id="@forum.id">
+                        @forum.name
+                    </a>
+                </td>
+                <td>
+                    @forum.description
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

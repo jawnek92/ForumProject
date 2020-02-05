@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ForumProject.Data\ForumProject.Data.csproj" />
+    <ProjectReference Include="..\ForumProject.Service\ForumProject.Service.csproj" />
   </ItemGroup>
 
 </Project>

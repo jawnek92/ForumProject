@@ -1,0 +1,46 @@
+﻿@model ForumProject.Models.Forum.ForumTopicModel
+@{
+    ViewData["Title"] = "Topic";
+}
+
+<h2>Welcome to the @Model.forum.name  forum.</h2>
+
+@if(Model.posts.Any())
+{
+    <table class="table table-bordered table-hover">
+        <tbody>
+            @foreach(var post in Model.posts)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Post" asp-action="Index" asp-route-id="@post.id">
+                            @post.title
+                        </a>                        
+                    </td>
+                    <td>
+                        @post.author
+                    </td>
+                    <td>
+                        @post.datePosted
+                    </td>
+                    <td>
+                        @post.nrOfReplies
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{ 
+    <div class="noPosts">
+        <h3>
+            There are no posts in @Model.forum.name  yet <br/>
+            Create one?
+            <a asp-controller="Post" aps-action="Create" asp-route-id="@Model.forum.id">
+                <span>Create</span>
+            </a>
+        </h3>
+    </div>
+}
+

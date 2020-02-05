@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20200204183744_init.cs" />
+    <Compile Remove="Migrations\20200204223525_update ApplicationUser.cs" />
   </ItemGroup>
 
   <ItemGroup>

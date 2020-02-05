@@ -3,6 +3,7 @@ using ForumProject.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ForumProject.Service
@@ -26,7 +27,7 @@ namespace ForumProject.Service
 
         public IEnumerable<Forum> getAll()
         {
-            return _context.forums.Include(forum => forum.Posts);
+            return _context.forums.Include(forum => forum.posts);
         }
 
         public IEnumerable<ApplicationUser> getAllActiveUsers()
@@ -36,7 +37,11 @@ namespace ForumProject.Service
 
         public Forum getById(int id)
         {
-            throw new NotImplementedException();
+            var forum = _context.forums.Where(tempForum => tempForum.id == id)
+                .Include(tempForum => tempForum.posts).ThenInclude(posts => posts.user)
+                .Include(tempForum => tempForum.posts).ThenInclude(posts => posts.replies).ThenInclude(reply => reply.user)
+                .FirstOrDefault();
+            return forum;
         }
 
         public Task updateForumDescription(int forumId, string newDescription)
