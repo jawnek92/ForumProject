@@ -78,9 +78,18 @@ namespace ForumProject.Controllers
                 authorRathing = post.user.rating,
                 created = post.created,
                 content = post.content,
-                replies = replies
+                replies = replies,
+                forumId = post.forum.id,
+                forumName = post.forum.title,
+                isAuthorAdmin = isAuthorAdmin(post.user)
+
             };
             return View(model);
+        }
+
+        private bool isAuthorAdmin(ApplicationUser user)
+        {
+            return _userManager.GetRolesAsync(user).Result.Contains("Admin");
         }
 
         private IEnumerable<PostReplyModel> BuildPostReplies(IEnumerable<PostReply> replies)
@@ -93,7 +102,8 @@ namespace ForumProject.Controllers
                 authorImageUrl = reply.user.profileImageUrl,
                 authorRating = reply.user.rating,
                 created = reply.created,
-                content = reply.content
+                content = reply.content,
+                isAuthorAdmin = isAuthorAdmin(reply.user)
             });
         }
     }

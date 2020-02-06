@@ -10,5 +10,6 @@ namespace ForumProject.Models.Forum
     {
         public ForumListingModel forum { get; set; }
         public IEnumerable<PostListingModel> posts { get; set; }
+        public string searchQuery { get; set; }
     }
 }

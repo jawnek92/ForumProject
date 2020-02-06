@@ -14,6 +14,7 @@ namespace ForumProject.Models.Reply
         public int authorRating { get; set; }
         public DateTime created { get; set; }
         public string content { get; set; }
+        public bool isAuthorAdmin { get; set; }
 
         public IEnumerable<PostReplyModel> replies { get; set; }
 

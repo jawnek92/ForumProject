@@ -3,29 +3,75 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>@Model.title</h2>
+<div class="container body-content">
+    <div class="row postHeader">
+        <div class="postHeading">
+            <span class="postIndexTitle">
+                @Model.title
+            </span>
+            <span id="headingBtn"><a asp-controller="Forum" asp-action="Topic" asp-route-id="@Model.forumId" class="btn">
+                 Back to @Model.forumName                
+            </a></span>
+        </div>
+    </div>
+</div>
 
-<div>
-    Author: @Model.authorName (@Model.authorRathing)
-    Created: @Model.created
+<div class="row" id="postIndexContent">
+    <div class="col-md-3 postAuthorContainer">
+        <a asp-controller="Profile" asp-action="Detail" asp-route-id="@Model.authorId">@Model.authorName</a>
+        <span class="postDate">@Model.created</span>
+        @if (Model.isAuthorAdmin)
+        {
+            <span class="isAdmin small">Admin</span>
+        }
+    </div>
+    <div class="col-mod-9 postContentContainer">
+        <div class="postContent">
+            @Html.Raw(Model.content)
+        </div>
+    </div>
 </div>
-<div>
-    @Model.content
-</div>
+<div class="row" id="replyDivider"></div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <span><a asp-controller="Reply" asp-action="Create" asp-route-id="@Model.id" class="btn">
+        Post Reply
+        </a></span>
+    </div>
+}
 
 @if (Model.replies.Any())
 {
     foreach(var reply in Model.replies)
     {
-        <div>
-            <div>
-                Reply Author: @reply.authorName (@reply.authorRating)
-                Reply Created: @reply.created
+        <div class="row replyContent">
+            <div class="col-md-3 replyAuthorContainer">
+                <div class="postAuthorImage"></div>
+                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@reply.authorId">@reply.authorName</a>
+                @if (reply.isAuthorAdmin)
+                {
+                    <div class="isAdmin small">Admin</div>
+                    <br/>
+                }
+                <span>@reply.created</span>
             </div>
-            <div>
-                Reply: @reply.content
+            <div class="col-md-9 replyContentContainer">
+                <div class="postContent">
+                    @Html.Raw(reply.content)
+                </div>
             </div>
         </div>
     }
 }
+else
+{
+    <div class="noPosts">
+        <h3>
+            There are no replies to this post yet.
+        </h3>
+    </div>
+}
+
 

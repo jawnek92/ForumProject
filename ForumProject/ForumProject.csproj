@@ -23,4 +23,8 @@
     <ProjectReference Include="..\ForumProject.Service\ForumProject.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\NewFolder\" />
+  </ItemGroup>
+
 </Project>

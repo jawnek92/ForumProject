@@ -3,52 +3,109 @@
     ViewData["Title"] = "Topic";
 }
 
-<h2>Welcome to the @Model.forum.name forum.</h2>
-
-<div id="headingBtn">
-    <a asp-controller="Post" 
-        asp-action="Create" 
-        asp-route-id="@Model.forum.id" class="btn btn-newPost">
-            Create Post
-    </a>
+<div class="container body-content">
+    <div class="row sectionHeader">
+        <div class="sectionHeading">
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <span id="headingBtn">
+                    <a asp-controller="Post"
+                       asp-action="Create"
+                       asp-route-id="@Model.forum.id" class="btn">
+                        Create Post
+                    </a>
+                </span>
+            }            
+            <div class="forumLogo" style="background-image:url(@Model.forum.forumImageUrl)"></div>
+            <p>Welcome to @Model.forum.name  forum.</p>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <p>
+                    <span>
+                        You must be <a asp-controller="Account" asp-action="Register">registered</a>
+                        to create a new post.
+                    </span>
+                </p>
+            }
+        </div>
+        <div class="sectionDescription">
+            <form asp-controller="Forum" asp-action="Search" method="post">
+                <div class="searchForm">
+                    <input asp-for="searchQuery" type="text" placeholder="Search..." class="searchBar" onfocus="clearThis(this)" />
+                    <button type="submit" class="btn">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+                <input asp-for="forum.id" name="id" type="hidden" />
+            </form>
+        </div>
+    </div>
+    <div class="row forumIndexContent">
+        @if (Model.posts.Any())
+        {
+            <table class="table table-hover table-bordered" id="forumIndexTable">
+                <tbody>
+                    @foreach (var post in Model.posts)
+                    {
+                        <tr>
+                            <td>
+                                <div class="postData">
+                                    <div class="postTitle">
+                                        <a asp-controller="Post" asp-action="Index" asp-route-id="@post.id">
+                                            @post.title
+                                        </a>
+                                    </div>
+                                    <div class="forumSubTitle">
+                                        <div>
+                                            <span class="postAuthor">
+                                                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.authorId">@post.authorName</a>
+                                            </span>
+                                            (@post.authorRating)<span class="postDate">@post.datePosted</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="forumPostCount">Replies: @post.nrOfReplies</div>
+                            </td>
+                            <td>
+                                <div class="postDate">@post.datePosted</div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="noPosts">
+                <i class="material-icons md-72">question_answer</i>
+                <h3>
+                    There are no posts on this forum.
+                    Would you like to
+                    <a asp-controller="Post" asp-action="Create" asp-route-id ="@Model.forum.id">
+                        <span>create</span>    
+                    </a>
+                    one?
+                </h3>
+            </div>
+        }
+    </div>
 </div>
 
-@if(Model.posts.Any())
-{
-    <table class="table table-bordered table-hover">
-        <tbody>
-            @foreach(var post in Model.posts)
-            {
-                <tr>
-                    <td>
-                        <a asp-controller="Post" asp-action="Index" asp-route-id="@post.id">
-                            @post.title
-                        </a>                        
-                    </td>
-                    <td>
-                        @post.author
-                    </td>
-                    <td>
-                        @post.datePosted
-                    </td>
-                    <td>
-                        @post.nrOfReplies
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+@section Scripts{ 
+    <script>
+        function clearThis(target) {
+            target.value = "";
+        }
+    </script>
 }
-else
-{ 
-    <div class="noPosts">
-        <h3>
-            There are no posts in @Model.forum.name  yet <br/>
-            Create one?
-            <a asp-controller="Post" aps-action="Create" asp-route-id="@Model.forum.id">
-                <span>Create</span>
-            </a>
-        </h3>
-    </div>
-}
+
+
+
+
+
+
+
+
 

@@ -16,7 +16,9 @@ namespace ForumProject.Models.Post
         public int authorRathing { get; set; }
         public DateTime created { get; set; }
         public string content { get; set; }
-
+        public int forumId { get; set; }
+        public string forumName { get; set; }
+        public bool isAuthorAdmin { get; set; }
         public IEnumerable<PostReplyModel> replies { get; set; }
 
     }
