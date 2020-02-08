@@ -4,6 +4,7 @@ using ForumProject.Models.Forum;
 using ForumProject.Models.Post;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ForumProject.Controllers
@@ -13,9 +14,10 @@ namespace ForumProject.Controllers
         private readonly IForum _forumService;
         private readonly IPost _postService;
 
-        public ForumController(IForum forumService)
+        public ForumController(IForum forumService, IPost postService)
         {
             this._forumService = forumService;
+            this._postService = postService;
         }
 
         public IActionResult Index()
@@ -35,11 +37,11 @@ namespace ForumProject.Controllers
             return View(model);
         }
 
-        public IActionResult Topic(int id)
+        public IActionResult Topic(int id, string searchQuery)
         {
             var forum = _forumService.getById(id);
-
-            var posts = forum.posts;
+            var posts = _postService.getFilteredPosts(forum, searchQuery).ToList();           
+            
             var postListings = posts.Select(post => new PostListingModel
             {
                 id = post.id,
@@ -59,6 +61,10 @@ namespace ForumProject.Controllers
         };
 
             return View(model);
+        }
+        public IActionResult Search(int id, string searchQuery)
+        {
+            return RedirectToAction("Topic", new { id, searchQuery });
         }
 
         private ForumListingModel buildForumListing(Post post)

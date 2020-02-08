@@ -102,8 +102,8 @@ namespace ForumProject.Controllers
                 authorImageUrl = reply.user.profileImageUrl,
                 authorRating = reply.user.rating,
                 created = reply.created,
-                content = reply.content,
-                isAuthorAdmin = isAuthorAdmin(reply.user)
+                postContent = reply.post.content,
+                replyContent = reply.content
             });
         }
     }

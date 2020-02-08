@@ -9,13 +9,24 @@
             <span class="postIndexTitle">
                 @Model.title
             </span>
-            <span id="headingBtn"><a asp-controller="Forum" asp-action="Topic" asp-route-id="@Model.forumId" class="btn">
-                 Back to @Model.forumName                
-            </a></span>
+            <span id="headingBtn">
+                <a asp-controller="Forum" asp-action="Topic" asp-route-id="@Model.forumId" class="btn">
+                    Back to @Model.forumName
+                </a>
+            </span>
         </div>
     </div>
 </div>
-
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <span style="float:right">
+            <a asp-controller="Reply" asp-action="Create" asp-route-id="@Model.id" class="btn">
+                Post Reply
+            </a>
+        </span>
+    </div>
+}
 <div class="row" id="postIndexContent">
     <div class="col-md-3 postAuthorContainer">
         <a asp-controller="Profile" asp-action="Detail" asp-route-id="@Model.authorId">@Model.authorName</a>
@@ -33,33 +44,20 @@
 </div>
 <div class="row" id="replyDivider"></div>
 
-@if (User.Identity.IsAuthenticated)
-{
-    <div class="row">
-        <span><a asp-controller="Reply" asp-action="Create" asp-route-id="@Model.id" class="btn">
-        Post Reply
-        </a></span>
-    </div>
-}
+
 
 @if (Model.replies.Any())
 {
-    foreach(var reply in Model.replies)
+    foreach (var reply in Model.replies)
     {
         <div class="row replyContent">
             <div class="col-md-3 replyAuthorContainer">
-                <div class="postAuthorImage"></div>
-                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@reply.authorId">@reply.authorName</a>
-                @if (reply.isAuthorAdmin)
-                {
-                    <div class="isAdmin small">Admin</div>
-                    <br/>
-                }
+                <div class="replyAuthor"> @reply.authorName</div>
                 <span>@reply.created</span>
             </div>
             <div class="col-md-9 replyContentContainer">
                 <div class="postContent">
-                    @Html.Raw(reply.content)
+                    @Html.Raw(reply.replyContent)
                 </div>
             </div>
         </div>
@@ -68,7 +66,7 @@
 else
 {
     <div class="noPosts">
-        <h3>
+        <h3 style="color : white">
             There are no replies to this post yet.
         </h3>
     </div>

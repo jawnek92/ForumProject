@@ -78,6 +78,35 @@
     font-size: 2em;
 }
 
+.frontPageTopContainer {
+    padding: 40px 80px 42px 40px;
+    border: 1px solid #999;
+    background-color: #2569D5;
+    font-family: 'PT Serif';
+}
+
+.homeSearch {
+    width: 50%;
+    margin-top: 8px;
+    background-color: grey;
+    padding: 8px;
+    border: 0px;
+    height: 1.8em;
+    font-size: 2.1em;
+    font-family: 'PT Serif';
+    font-weight: bold;
+    transition: ease-in 0.2s;
+}
+
+    .homeSearch:focus {
+        border: none !important;
+        outline: none !important;
+        transition: ease-in 0.2s;
+        color: white;
+        background-color: rgba(0,0,0,0.7);
+        box-shadow: 0 5px 4px -6px #000;
+    }
+
 /* Front page content */
 
 .frontPageContent {
@@ -166,17 +195,18 @@
     margin-right:20px;
 }
 
-
-.postAuthorRating {
-    font-size: 0.9em;
-    color: #159;
-    font-family: 'PT Serif';
+.btn-search{
+    background : none !important;
+    border : none;
+    padding : 0 !important;
+    font : inherit;
 }
+
 #postIndexContent{
     background-color: white;
+    border-bottom : 1px solid #ddd;
     box-shadow: 0 10px 20px rgba(0,0,0,0.2) 0 6px 6px rgba(0,0,0,0.3);
 }
-
 
 /* Forum index */
 #forumIndexTable td {
@@ -225,11 +255,6 @@
     font-size: 0.9em;
 }
 
-.forumMemberCount {
-    color: #888;
-    font-family: 'PT Serif';
-    font-size: 0.9em;
-}
 
 #forumIndexContent {
     padding-bottom: 60px;
@@ -240,9 +265,9 @@
     text-align: center;
     padding-top: 30px;
     font-family: 'PT Serif';
+    color : white;
 }
 
-/*Post*/
 .createPostSection {
     background-color: #fff;
     padding: 24px;
@@ -260,36 +285,19 @@
     color: #EEE;
 }
 
-.frontPageTopContainer {
-    padding: 40px 80px 42px 40px;
-    border: 1px solid #999;
-    background-color: #2569D5;
+.replyOriginalPost {
+    color: white;
     font-family: 'PT Serif';
 }
 
-.homeSearch {
-    width: 50%;
-    margin-top: 8px;
-    background-color: grey;
-    padding: 8px;
-    border: 0px;
-    height: 1.8em;
-    font-size: 2.1em;
+.replyContent {
     font-family: 'PT Serif';
-    font-weight: bold;
-    transition: ease-in 0.2s;
+    color: black;
+    padding: 22px;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: white
 }
-
-    .homeSearch:focus {
-        border: none !important;
-        outline: none !important;
-        transition: ease-in 0.2s;
-        color: white;
-        background-color: rgba(0,0,0,0.7);
-        box-shadow: 0 5px 4px -6px #000;
-    }
-
-
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

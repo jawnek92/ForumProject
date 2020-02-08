@@ -12,11 +12,17 @@ namespace ForumProject.Models.Reply
         public string authorName { get; set; }
         public string authorImageUrl { get; set; }
         public int authorRating { get; set; }
-        public DateTime created { get; set; }
-        public string content { get; set; }
-        public bool isAuthorAdmin { get; set; }
 
-        public IEnumerable<PostReplyModel> replies { get; set; }
+        public DateTime created { get; set; }
+        public string replyContent { get; set; }
+        
+        public int postId { get; set; }
+        public string postTitle { get; set; }
+        public string postContent { get; set; }
+        
+        public string forumName { get; set; }
+        public string forumImageUrl { get; set; }
+        public int forumId { get; set; }
 
     }
 }

@@ -11,7 +11,7 @@
                 <span id="headingBtn">
                     <a asp-controller="Post"
                        asp-action="Create"
-                       asp-route-id="@Model.forum.id" class="btn">
+                       asp-route-id="@Model.forum.id" class="btn-search">
                         Create Post
                     </a>
                 </span>
@@ -22,7 +22,8 @@
             {
                 <p>
                     <span>
-                        You must be <a asp-controller="Account" asp-action="Register">registered</a>
+                        You must be <a asp-controller="Account" asp-action="Register">registered</a> or 
+                        <a asp-controller="Account" asp-action="Login">logged in</a>
                         to create a new post.
                     </span>
                 </p>
@@ -30,14 +31,12 @@
         </div>
         <div class="sectionDescription">
             <form asp-controller="Forum" asp-action="Search" method="post">
-                <div class="searchForm">
-                    <input asp-for="searchQuery" type="text" placeholder="Search..." class="searchBar" onfocus="clearThis(this)" />
-                    <button type="submit" class="btn">
-                        <i class="material-icons">search</i>
-                    </button>
-                </div>
+                <input asp-for="searchQuery" type="text" placeholder="Search..." class="homeSearch" onfocus="clearThis(this)"/>
+                <button type="submit" class="btn">
+                    <i class="material-icons">search</i>
+                </button>
                 <input asp-for="forum.id" name="id" type="hidden" />
-            </form>
+            </form>            
         </div>
     </div>
     <div class="row forumIndexContent">
@@ -79,7 +78,6 @@
         else
         {
             <div class="noPosts">
-                <i class="material-icons md-72">question_answer</i>
                 <h3>
                     There are no posts on this forum.
                     Would you like to

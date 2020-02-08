@@ -10,13 +10,14 @@ namespace ForumProject.Data
     {
         Post getById(int id);
         IEnumerable<Post> getAll();
-        IEnumerable<Post> getFilteredPosts(string searchQuery);
+        IEnumerable<Post> getFilteredPosts(Forum forum, string searchQuery);
         IEnumerable<Post> getPostsByForum(int id);
         IEnumerable<Post> getLatestPosts(int number);
 
         Task add(Post post);
         Task delete(int id);
         Task editPost(int id, string newContent);
+        Task addReply(PostReply postReply);
         
     }
 }

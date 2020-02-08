@@ -24,6 +24,12 @@ namespace ForumProject.Service
             await _context.SaveChangesAsync();
         }
 
+        public async Task addReply(PostReply postReply)
+        {
+            _context.replies.Add(postReply);
+            await _context.SaveChangesAsync();
+        }
+
         public Task delete(int id)
         {
             throw new NotImplementedException();
@@ -51,9 +57,10 @@ namespace ForumProject.Service
                 .First();
         }
 
-        public IEnumerable<Post> getFilteredPosts(string searchQuery)
+        public IEnumerable<Post> getFilteredPosts(Forum forum, string searchQuery)
         {
-            throw new NotImplementedException();
+            return string.IsNullOrEmpty(searchQuery) ? forum.posts : 
+                forum.posts.Where(p => p.title.Contains(searchQuery) || p.content.Contains(searchQuery));
         }
 
         public IEnumerable<Post> getLatestPosts(int number)
