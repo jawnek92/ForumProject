@@ -275,11 +275,13 @@
 
 /*wrapping element*/
 .body-content {
-    margin-top: 50px;
+    margin-top : 30px;
     padding-left: 15px;
     padding-right: 15px;
 }
-
+.post-body-content{
+    margin-top: 5px;
+}
 
 .sectionDescription {
     color: #EEE;
