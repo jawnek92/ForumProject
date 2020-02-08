@@ -11,7 +11,7 @@
                 <span id="headingBtn">
                     <a asp-controller="Post"
                        asp-action="Create"
-                       asp-route-id="@Model.forum.id" class="btn-search">
+                       asp-route-id="@Model.forum.id" class="btn">
                         Create Post
                     </a>
                 </span>
@@ -77,16 +77,18 @@
         }
         else
         {
-            <div class="noPosts">
-                <h3>
-                    There are no posts on this forum.
-                    Would you like to
-                    <a asp-controller="Post" asp-action="Create" asp-route-id ="@Model.forum.id">
-                        <span>create</span>    
-                    </a>
-                    one?
-                </h3>
-            </div>
+            @if (Context.User.Identity.IsAuthenticated){
+                <div class="noPosts">
+                    <h3>
+                        There are no posts on this forum.
+                        Would you like to
+                        <a asp-controller="Post" asp-action="Create" asp-route-id="@Model.forum.id">
+                            <span>create</span>
+                        </a>
+                        one?
+                    </h3>
+                </div>
+            }
         }
     </div>
 </div>
